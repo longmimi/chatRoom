@@ -117,18 +117,18 @@ io.sockets.on('connection', function (socket) { //建立连接  服务器监听�
 
 app.configure(function(){
   app.set('port', process.env.PORT || 3006);
-  app.set('views', __dirname + '/views');
-  app.set('view engine', 'jade');
-  app.use(express.favicon());
-  app.use(express.logger('dev'));
-  app.use(express.bodyParser());
-  app.use(express.cookieParser());
-  app.use(express.methodOverride());
-  app.use(app.router);
-  app.use(express.static(path.join(__dirname, 'public')));
+  app.set('views', __dirname + '/views');  //设置 views 文件夹为视图文件的目录，存放模板文件，__dirname 为全局变量，存储着当前正在执行脚本所在的目录名。
+  app.set('view engine', 'jade'); //设置视图模版引擎为 ejs
+  app.use(express.favicon());  //用来设置网站的图标，参数为图标的路径。如果不指明，则用默认的express图标。
+  app.use(express.logger('dev')); //connect 内建的中间件，在开发环境下使用，在终端显示简单的不同颜色的日志
+  app.use(express.bodyParser()); //connect 内建的中间件，用来解析请求体，支持 application/json， application/x-www-form-urlencoded, 和 multipart/form-data。
+  app.use(express.cookieParser());  //为了支持session，在这样的设置中，session会被加密保存在客户端的cookie，但这样程序重启后session就不起作用了，不过express.session支持session的持久化保存，因为express用的最多的数据库就是mongo，所以下面给出用mongo保存session的配置。首先要在package.json里加上依赖项connect-mongo：
+  app.use(express.methodOverride()); //connect 内建的中间件，可以协助处理 POST 请求，伪装 PUT、DELETE 和其他 HTTP 方法。
+  app.use(app.router);  //设置应用的路由
+  app.use(express.static(path.join(__dirname, 'public'))); //connect 内建的中间件，设置根目录下的 public 文件夹为静态文件服务器，存放 image、css、js 文件于此。
 });
 
-app.configure('development', function(){
+app.configure('development', function () { //开发环境下的错误处理，输出错误信息。
   app.use(express.errorHandler());
 });
 
