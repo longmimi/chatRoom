@@ -155,13 +155,11 @@ $(document).ready(function(e) {
 	$("#say").click(function(e){
 		say();
 	});
-	$("#sendImgBtn").click(function (e) {
-		
-		
+	$("#sendImgBtn").click(function (e) {		
 			let Imginput = document.getElementById('tupian');
 			let file = Imginput.files[0];       //得到该图片  
 			let reader = new FileReader();      //创建一个FileReader对象，进行下一步的操作  
-			reader.readAsDataURL(file);              //通过readAsDataURL读取图片  
+			reader.readAsDataURL(file);              //通过readAsDataURL读取图片  	异步读取文件内容，结果用data:url的字符串形式表示
 
 			reader.onload = function () {            //读取完毕会自动触发，读取结果保存在result中  
 				let data = { 
